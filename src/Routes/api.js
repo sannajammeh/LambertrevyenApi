@@ -15,7 +15,7 @@ firebaseAdmin.initializeApp({
 const firestore = firebaseAdmin.firestore();
 const serverTime = firebaseAdmin.firestore.FieldValue.serverTimestamp();
 //Controllers
-import { GetTickets, CreateTicket } from '../controllers/Tickets';
+import { CreateTicket } from '../controllers/Tickets';
 //Services
 import TicketService from '../services/ticketService';
 import { TicketsErrorHandler } from '../controllers/Errors';
@@ -31,7 +31,7 @@ const ensureJson = ensureCType('json');
  * @route api/tickets/
  * @method "GET"
  */
-Api.get('/tickets', GetTickets(ticketService));
+// Api.get('/tickets', GetTickets(ticketService));
 
 /**
  * @route api/tickets/
