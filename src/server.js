@@ -11,7 +11,11 @@ export function server(dep) {
   app.use(cors());
 
   // Routes
-  app.use('/api', Api);
+  app.use('/v1', Api);
+
+  app.get('/', (req, res) => {
+    return res.send('online');
+  });
 
   return app;
 }
