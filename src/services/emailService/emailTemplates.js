@@ -2,7 +2,7 @@ import { formatToNok } from '../../utils/formatToNok';
 
 export const ticketReserved = ({
   ticketId = '',
-  fullName = '',
+  name = '',
   seats = '',
   total = 0,
   date = '',
@@ -166,7 +166,7 @@ export const ticketReserved = ({
                         </h3>
                         <ul style="list-style: none;">
                           <li><b>Billettkode:</b> ${ticketId}</li>
-                          <li><b>Navn:</b> ${fullName}</li>
+                          <li><b>Navn:</b> ${name}</li>
                           <li><b>Antall seter:</b> ${seats}</li>
                           <li><b>Dato:</b> ${date} <br /></li>
                           <li><b>Sum:</b> ${formatToNok(total)}</li>
