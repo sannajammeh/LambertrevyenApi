@@ -14,7 +14,7 @@ sendGrid.setApiKey(process.env.SENDGRID_KEY);
 
 firebaseAdmin.initializeApp({
   credential: firebaseAdmin.credential.cert(firebaseKey),
-  databaseURL: 'https://lambertrevyen2020.firebaseio.com'
+  databaseURL: 'https://lambertrevyen2020.firebaseio.com',
 });
 
 const firestore = firebaseAdmin.firestore();

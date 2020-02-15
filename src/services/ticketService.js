@@ -60,7 +60,7 @@ class TicketService {
       seats,
       totalSeats: requestedSeats,
       total,
-      createdAt: this.serverTime
+      createdAt: this.serverTime,
     });
 
     const updatedPlay = await play.ref.set({ count: newSeatCount }, { merge: true });
