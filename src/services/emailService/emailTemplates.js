@@ -1,4 +1,4 @@
-import { formatToNOK } from '../../../../client/src/utils/format';
+import { formatToNok } from '../../utils/formatToNok';
 
 export const ticketReserved = ({
   ticketId = '',
