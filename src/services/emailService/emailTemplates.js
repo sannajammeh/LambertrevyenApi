@@ -169,12 +169,12 @@ export const ticketReserved = ({
                           <li><b>Navn:</b> ${fullName}</li>
                           <li><b>Antall seter:</b> ${seats}</li>
                           <li><b>Dato:</b> ${date} <br /></li>
-                          <li><b>Sum:</b> ${formatToNOK(total)}</li>
+                          <li><b>Sum:</b> ${formatToNok(total)}</li>
                         </ul>
                         <hr style="border: 0; border-bottom: 1px solid #D8DCFF" />
                         <h2 style="text-decoration: underline;">Forhåndsbetale</h2>
                         <h3 style="margin: 0; margin-bottom: 6px;">
-                          VIPPS ${formatToNOK(total)} TIL
+                          VIPPS ${formatToNok(total)} TIL
                           <span
                             style="vertical-align: middle; margin-bottom: 3px; border: 1.5px solid #D8DCFF; background: #ffffff; color:#46494C; padding: 2px 4px; border-radius: 4px; text-align: center; font-size: 16px; font-weight: normal;"
                           >+47 45513326</span>
