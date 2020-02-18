@@ -1,5 +1,7 @@
 'use strict';
 
+import { BAD_REQUEST } from '../error.types';
+
 export const GetTickets = TicketService => async (req, res, next) => {
   try {
     const tickets = await TicketService.fetchTickets();
@@ -39,5 +41,22 @@ export const CreateTicket = (TicketService, EmailService) => async (req, res, ne
     const sendEmail = await EmailService.sendTicketReserved(ticketObj);
   } catch (error) {
     next(error);
+  }
+};
+
+export const UpdateTicket = (TicketService, EmailService) => async (req, res, next) => {
+  const { id, status } = req.body;
+  const { ticketId } = req.params;
+
+  try {
+    if (id !== ticketId) throw new Error(BAD_REQUEST);
+
+    const updatedTicket = await TicketService.updateTicket({ id, status });
+
+    res.json(updatedTicket).end();
+
+    const sendEmail = await EmailService.sendTicketStatus(updatedTicket);
+  } catch (error) {
+    return next(error);
   }
 };

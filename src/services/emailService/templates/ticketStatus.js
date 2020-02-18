@@ -1,26 +1,20 @@
-import { formatToNok } from '../../utils/formatToNok';
+import { formatToNok } from '../../../utils/formatToNok';
 
-export const ticketReserved = ({
-  ticketId = '',
+export const ticketStatus = ({
+  id = '',
   name = '',
   seats = '',
+  status = '',
   total = 0,
   date = '',
-}) => /*html */ `
-
+}) => /*html*/ `
 <!DOCTYPE html>
-<html>
+<head>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Billett reservert | Lambertrevyen</title>
+    <title>Billett betalt! | Lambertrevyen</title>
     <style>
-      /* -------------------------------------
-        INLINED WITH htmlemail.io/inline
-    ------------------------------------- */
-      /* -------------------------------------
-        RESPONSIVE AND MOBILE FRIENDLY STYLES
-    ------------------------------------- */
       @media only screen and (max-width: 620px) {
         table[class='body'] h1 {
           font-size: 28px !important;
@@ -129,7 +123,7 @@ export const ticketReserved = ({
             <span
               class="preheader"
               style="color: transparent; display: none; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all; visibility: hidden; width: 0;"
-              >Billet er reservert</span
+              >Nytt billett status!</span
             >
             <table
               class="main"
@@ -157,34 +151,16 @@ export const ticketReserved = ({
                         <p
                           style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; Margin-bottom: 15px;"
                         >
-                          Reservasjon opprettet! Din billett er reservert, men ikke betalt. Betaling
-                          gjøres gjennom vipps ved luka før forestillingen. Beløpet kan også
-                          forhåndsbetales.
+                          Din billett er nå ${status}.
                         </p>
-                        <h3>
-                          Status: <span style="font-weight: normal;">Reservert (Ikke betalt)</span>
-                        </h3>
+                        <h3>Status: <span style="font-weight: normal;">${status}</span></h3>
                         <ul style="list-style: none;">
-                          <li><b>Billettkode:</b> ${ticketId}</li>
+                          <li><b>Billettkode:</b> ${id}</li>
                           <li><b>Navn:</b> ${name}</li>
                           <li><b>Antall seter:</b> ${seats}</li>
                           <li><b>Dato:</b> ${date} <br /></li>
                           <li><b>Sum:</b> ${formatToNok(total)}</li>
                         </ul>
-                        <hr style="border: 0; border-bottom: 1px solid #D8DCFF" />
-                        <h2 style="text-decoration: underline;">Forhåndsbetale</h2>
-                        <h3 style="margin: 0; margin-bottom: 6px;">
-                          VIPPS ${formatToNok(total)} TIL
-                          <span
-                            style="vertical-align: middle; margin-bottom: 3px; border: 1.5px solid #D8DCFF; background: #ffffff; color:#46494C; padding: 2px 4px; border-radius: 4px; text-align: center; font-size: 16px; font-weight: normal;"
-                          >+47 45513326</span>
-                        </h3>
-                        <p>
-                          Husk å inkludere <b>billettkode!</b>
-                          <span
-                            style="vertical-align: middle; margin-bottom: 3px; border: 1.5px solid #D8DCFF; background: #ffffff; color:#46494C; padding: 2px 4px; border-radius: 4px; text-align: center; font-size: 16px; font-weight: normal;"
-                          >${ticketId}</span>
-                        </p>
                         <hr style="border: 0; border-bottom: 1px solid #D8DCFF" />
                         <table
                           border="0"
@@ -210,12 +186,6 @@ export const ticketReserved = ({
                                       <td
                                         style="font-family: sans-serif; font-size: 14px; vertical-align: top; background-color: #32325d; border-radius: 5px; text-align: center;"
                                       >
-                                        <!-- <a
-                                          href="http://htmlemail.io"
-                                          target="_blank"
-                                          style="display: inline-block; color: #ffffff; background-color: #32325d; border: solid 1px #32325d; border-radius: 5px; box-sizing: border-box; cursor: pointer; text-decoration: none; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-transform: capitalize; border-color: #32325d;"
-                                          >Call To Action</a
-                                        > -->
                                       </td>
                                     </tr>
                                   </tbody>
@@ -274,5 +244,5 @@ export const ticketReserved = ({
       </tr>
     </table>
   </body>
-</html>
+</head>
 `;

@@ -1,4 +1,7 @@
 'use strict';
+import dotenv from 'dotenv';
+dotenv.config();
+
 import { server } from './src/server';
 
 const app = server();

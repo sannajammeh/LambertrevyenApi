@@ -1,11 +1,21 @@
 'use strict';
 import shortid from 'shortid';
-import { PLAY_IS_BOOKED, PLAY_NOT_ENOUGH_SEATS, BAD_REQUEST } from '../error.types';
+import {
+  PLAY_IS_BOOKED,
+  PLAY_NOT_ENOUGH_SEATS,
+  BAD_REQUEST,
+  TICKET_NOT_EXIST,
+  TICKET_UPDATE_ERROR,
+} from '../error.types';
 
 class TicketService {
   constructor(firestore, serverTime) {
     this.firestore = firestore;
     this.serverTime = serverTime;
+    this.statusTypes = {
+      unpaid: 'ubetalt',
+      paid: 'betalt',
+    };
   }
 
   async fetchTickets() {
@@ -14,6 +24,7 @@ class TicketService {
     const tickets = ref.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     return tickets;
   }
+
   async fetchTicket(id) {
     const ref = await this.firestore
       .collection('tickets')
@@ -21,6 +32,7 @@ class TicketService {
       .get();
     return ref.data();
   }
+
   async createTicket({ name, email, phone, playId, date, seats }) {
     const max = 164; // Max seat count
 
@@ -67,6 +79,34 @@ class TicketService {
 
     return ref;
   }
+
+  async updateTicket({ id, status }) {
+    const ticketRef = await this.firestore.collection('tickets').doc(id);
+    const ticket = await ticketRef.get();
+
+    if (!ticket.exists) throw new Error(TICKET_NOT_EXIST);
+    if (ticket.data().status !== 'unpaid') throw new Error(TICKET_UPDATE_ERROR);
+
+    const writeRef = await ticketRef.set(
+      {
+        status,
+      },
+      { merge: true }
+    );
+
+    const newTicket = await ticketRef.get();
+    const ticketData = newTicket.data();
+    const seats = this.getTotalSeats(ticketData.seats);
+
+    return {
+      id: newTicket.id,
+      ...ticketData,
+      seats,
+      status: this.statusTypes[ticketData.status],
+    };
+  }
+
+  // Utils
   getTotalSeats(seats = {}) {
     let count = 0;
     for (const value of Object.values(seats)) {
