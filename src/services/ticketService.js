@@ -108,12 +108,12 @@ class TicketService {
 
   // Utils
   getTotalSeats(seats = {}) {
-    let count = 0;
-    for (const value of Object.values(seats)) {
-      count += value ? Number(value) : 0;
-    }
-    return count;
+    return Object.values(seats).reduce(
+      (acc, seat) => acc + (parseInt(seat) ? parseInt(seat) : 0),
+      0
+    );
   }
+
   calculateTotal(prices, seats) {
     return prices.reduce((acc, value) => {
       const amount = seats[value.id] || 0;

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon -r esm --inspect index.js",
-    "test": "mocha test/services"
+    "test": "mocha test/services -r esm"
   },
   "keywords": [],
   "author": "",
