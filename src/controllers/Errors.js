@@ -7,6 +7,8 @@ import {
   VALIDATION_ERROR,
   TICKET_NOT_EXIST,
   TICKET_UPDATE_ERROR,
+  NOT_AUTHORIZED,
+  TOKEN_REVOKED,
 } from '../error.types';
 import { logger } from '../logger';
 
@@ -35,6 +37,10 @@ export const TicketsErrorHandler = (err, req, res, next) => {
 
     case VALIDATION_ERROR:
       return res.status(400).json({ type: VALIDATION_ERROR, fields: err.fields });
+
+    case NOT_AUTHORIZED:
+    case TOKEN_REVOKED:
+      return res.status(401).json({ msg: err.message });
 
     default:
       return res.status(400).json({ msg: err.message });
