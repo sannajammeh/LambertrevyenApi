@@ -17,7 +17,9 @@ firebaseAdmin.initializeApp({
 });
 
 const firestore = firebaseAdmin.firestore();
+const fireAuth = firebaseAdmin.auth();
 const serverTime = firebaseAdmin.firestore.FieldValue.serverTimestamp();
+
 //Controllers
 import { CreateTicket, UpdateTicket } from '../controllers/Tickets';
 //Services
@@ -26,6 +28,7 @@ import EmailService from '../services/emailService/EmailService';
 
 import { TicketsErrorHandler } from '../controllers/Errors';
 import validate, { createTicketSchema, updateTicketSchema } from '../validators/ticketsValidator';
+import { auth } from '../validators/auth';
 
 const ticketService = new TicketService(firestore, serverTime);
 const emailService = new EmailService(sendGrid);
@@ -52,6 +55,7 @@ Api.post(
  */
 Api.patch(
   '/tickets/:ticketId',
+  auth(fireAuth),
   ensureJson,
   validate(updateTicketSchema),
   UpdateTicket(ticketService, emailService)
