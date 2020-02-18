@@ -1,5 +1,4 @@
 'use strict';
-
 import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
@@ -20,25 +19,19 @@ firebaseAdmin.initializeApp({
 const firestore = firebaseAdmin.firestore();
 const serverTime = firebaseAdmin.firestore.FieldValue.serverTimestamp();
 //Controllers
-import { CreateTicket } from '../controllers/Tickets';
+import { CreateTicket, UpdateTicket } from '../controllers/Tickets';
 //Services
 import TicketService from '../services/ticketService';
 import EmailService from '../services/emailService/EmailService';
 
 import { TicketsErrorHandler } from '../controllers/Errors';
-import validate, { createTicketSchema } from '../validators/ticketsValidator';
+import validate, { createTicketSchema, updateTicketSchema } from '../validators/ticketsValidator';
 
 const ticketService = new TicketService(firestore, serverTime);
 const emailService = new EmailService(sendGrid);
 const Api = express.Router();
 // Route middleware
 const ensureJson = ensureCType('json');
-
-/**
- * @route api/tickets/
- * @method "GET"
- */
-// Api.get('/tickets', GetTickets(ticketService));
 
 /**
  * @route api/tickets/
@@ -50,6 +43,18 @@ Api.post(
   ensureJson,
   validate(createTicketSchema),
   CreateTicket(ticketService, emailService)
+);
+
+/**
+ * @route api/tickets/
+ * @method "PATCH"
+ * @contentType "JSON"
+ */
+Api.patch(
+  '/tickets/:ticketId',
+  ensureJson,
+  validate(updateTicketSchema),
+  UpdateTicket(ticketService, emailService)
 );
 
 Api.use(TicketsErrorHandler);

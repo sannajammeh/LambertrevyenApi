@@ -37,4 +37,9 @@ export const createTicketSchema = Joi.object({
   seats: Joi.object().required(),
 });
 
+export const updateTicketSchema = Joi.object({
+  id: Joi.string().required(),
+  status: Joi.string().required(),
+});
+
 export default validate;

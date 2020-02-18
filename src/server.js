@@ -8,6 +8,10 @@ const corsOptions = {
   origin: 'https://lambertrevyen2020.no',
 };
 
+if (process.env.NODE_ENV === 'development') {
+  corsOptions.origin = '*';
+}
+
 export function server(dep) {
   const app = express();
   // Middlewares
