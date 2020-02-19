@@ -4,12 +4,20 @@ import cors from 'cors';
 // Routes
 import Api from './Routes/api';
 
+const whitelist = ['https://lambertrevyen2020.no', 'https://admin.lambertrevyen2020.no'];
+
 const corsOptions = {
-  origin: 'https://lambertrevyen2020.no',
+  origin: function(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
 };
 
 if (process.env.NODE_ENV === 'development') {
-  corsOptions.origin = '*';
+  whitelist.push('http://localhost:3000');
 }
 
 export function server(dep) {
