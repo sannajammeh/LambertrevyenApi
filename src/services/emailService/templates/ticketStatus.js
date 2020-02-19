@@ -13,7 +13,7 @@ export const ticketStatus = ({
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Billett betalt! | Lambertrevyen</title>
+    <title>Billett er ${status}! | Lambertrevyen</title>
     <style>
       @media only screen and (max-width: 620px) {
         table[class='body'] h1 {
@@ -123,7 +123,7 @@ export const ticketStatus = ({
             <span
               class="preheader"
               style="color: transparent; display: none; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all; visibility: hidden; width: 0;"
-              >Nytt billett status!</span
+              >Ny billett status!</span
             >
             <table
               class="main"

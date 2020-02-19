@@ -84,8 +84,9 @@ class TicketService {
     const ticketRef = await this.firestore.collection('tickets').doc(id);
     const ticket = await ticketRef.get();
 
+    const prevStatus = ticket.data().status;
     if (!ticket.exists) throw new Error(TICKET_NOT_EXIST);
-    if (ticket.data().status !== 'unpaid') throw new Error(TICKET_UPDATE_ERROR);
+    if (prevStatus == 'paid') throw new Error(TICKET_UPDATE_ERROR);
 
     const writeRef = await ticketRef.set(
       {
