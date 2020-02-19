@@ -34,7 +34,7 @@ class EmailService {
   async sendTicketStatus({ id, name, seats, date, email, total, status }) {
     const request = {
       to: email,
-      subject: 'Din billett er betalt! Lambertrevyen 2020',
+      subject: 'Ny billett status! Lambertrevyen 2020',
       html: ticketStatus({ id, name, seats, total, date, status }),
     };
 
