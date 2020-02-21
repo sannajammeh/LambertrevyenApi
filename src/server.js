@@ -4,7 +4,11 @@ import cors from 'cors';
 // Routes
 import Api from './Routes/api';
 
-const whitelist = ['https://lambertrevyen2020.no', 'https://admin.lambertrevyen2020.no'];
+const whitelist = [
+  'https://lambertrevyen2020.no',
+  'https://lambertseterrevyen.no',
+  'https://admin.lambertrevyen2020.no',
+];
 
 const corsOptions = {
   origin: function(origin, callback) {
